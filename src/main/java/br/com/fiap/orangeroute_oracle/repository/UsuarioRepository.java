@@ -7,4 +7,5 @@ import br.com.fiap.orangeroute_oracle.entity.*;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    boolean existsByEmail(String email);
 }

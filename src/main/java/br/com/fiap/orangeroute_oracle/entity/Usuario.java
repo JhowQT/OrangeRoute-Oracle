@@ -1,5 +1,7 @@
 package br.com.fiap.orangeroute_oracle.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +10,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Usuario {
 
     @Id
@@ -21,6 +24,7 @@ public class Usuario {
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
 
+    @JsonIgnore
     @Column(name = "senha", nullable = false, length = 150)
     private String senha;
 
