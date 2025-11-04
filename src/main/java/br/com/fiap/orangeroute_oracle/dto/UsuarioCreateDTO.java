@@ -2,6 +2,7 @@ package br.com.fiap.orangeroute_oracle.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -20,6 +21,6 @@ public class UsuarioCreateDTO {
     @Size(min = 8, max = 50, message = "A senha deve ter entre 8 e 50 caracteres.")
     private String senha;
 
-    @NotBlank(message = "O tipo de usuário é obrigatório.")
+    @NotNull(message = "O tipo de usuário é obrigatório.")
     private Long idTipoUsuario;
 }
