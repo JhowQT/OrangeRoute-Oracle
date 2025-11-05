@@ -26,26 +26,35 @@ public class ComentarioService {
     @Autowired
     private TrilhaCarreiraRepository trilhaRepository;
 
+    // 🔹 Listar todos os comentários
     public List<ComentarioResponseDTO> listarTodos() {
         return comentarioRepository.findAll()
                 .stream()
                 .map(c -> new ComentarioResponseDTO(
                         c.getIdComentario(),
+                        c.getTrilhaCarreira().getIdTrilhaCarreira(),
+                        c.getUsuario().getIdUsuario(),
                         c.getConteudoComentario(),
-                        c.getUsuario().getNomeUsuario()))
+                        c.getUsuario().getNomeUsuario(),
+                        c.getTrilhaCarreira().getTituloTrilha()))
                 .collect(Collectors.toList());
     }
 
+    // 🔹 Listar comentários de uma trilha específica
     public List<ComentarioResponseDTO> listarPorTrilha(Long idTrilha) {
         return comentarioRepository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha)
                 .stream()
                 .map(c -> new ComentarioResponseDTO(
                         c.getIdComentario(),
+                        c.getTrilhaCarreira().getIdTrilhaCarreira(),
+                        c.getUsuario().getIdUsuario(),
                         c.getConteudoComentario(),
-                        c.getUsuario().getNomeUsuario()))
+                        c.getUsuario().getNomeUsuario(),
+                        c.getTrilhaCarreira().getTituloTrilha()))
                 .collect(Collectors.toList());
     }
 
+    // 🔹 Criar novo comentário (com FKs)
     @Transactional
     public ComentarioResponseDTO criar(ComentarioCreateDTO dto) {
         Comentario comentario = new Comentario();
@@ -63,8 +72,11 @@ public class ComentarioService {
 
         return new ComentarioResponseDTO(
                 salvo.getIdComentario(),
+                salvo.getTrilhaCarreira().getIdTrilhaCarreira(),
+                salvo.getUsuario().getIdUsuario(),
                 salvo.getConteudoComentario(),
-                salvo.getUsuario().getNomeUsuario()
+                salvo.getUsuario().getNomeUsuario(),
+                salvo.getTrilhaCarreira().getTituloTrilha()
         );
     }
 }

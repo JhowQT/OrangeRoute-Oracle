@@ -12,7 +12,8 @@ import lombok.Setter;
 public class FavoritoResponseDTO {
 
     private Long idFavorito;
+    private Long idUsuario;
+    private Long idTrilhaCarreira;
     private String nomeUsuario;
     private String tituloTrilha;
 }
-

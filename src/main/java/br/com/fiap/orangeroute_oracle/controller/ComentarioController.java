@@ -11,6 +11,7 @@ import br.com.fiap.orangeroute_oracle.service.ComentarioService;
 
 @RestController
 @RequestMapping("/comentarios")
+@CrossOrigin(origins = "*") // Permite chamadas do front (ex: localhost:5500)
 public class ComentarioController {
 
     @Autowired

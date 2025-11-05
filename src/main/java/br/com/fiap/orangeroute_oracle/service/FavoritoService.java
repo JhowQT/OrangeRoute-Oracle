@@ -26,32 +26,33 @@ public class FavoritoService {
     @Autowired
     private TrilhaCarreiraRepository trilhaRepository;
 
-    // 🔹 Listar todos os favoritos
     public List<FavoritoResponseDTO> listarTodos() {
         return favoritoRepository.findAll()
                 .stream()
                 .map(f -> new FavoritoResponseDTO(
                         f.getIdFavorito(),
+                        f.getUsuario().getIdUsuario(),
+                        f.getTrilhaCarreira().getIdTrilhaCarreira(),
                         f.getUsuario().getNomeUsuario(),
                         f.getTrilhaCarreira().getTituloTrilha()))
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Listar favoritos de um usuário específico
     public List<FavoritoResponseDTO> listarPorUsuario(Long idUsuario) {
         return favoritoRepository.findByUsuarioIdUsuario(idUsuario)
                 .stream()
                 .map(f -> new FavoritoResponseDTO(
                         f.getIdFavorito(),
+                        f.getUsuario().getIdUsuario(),
+                        f.getTrilhaCarreira().getIdTrilhaCarreira(),
                         f.getUsuario().getNomeUsuario(),
                         f.getTrilhaCarreira().getTituloTrilha()))
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Criar novo favorito (com FKs)
     @Transactional
     public FavoritoResponseDTO criar(FavoritoCreateDTO dto) {
-        // Verifica se já existe o favorito
+
         boolean jaExiste = favoritoRepository.existsByUsuarioIdUsuarioAndTrilhaCarreiraIdTrilhaCarreira(
                 dto.getIdUsuario(), dto.getIdTrilhaCarreira());
 
@@ -69,12 +70,14 @@ public class FavoritoService {
 
         return new FavoritoResponseDTO(
                 salvo.getIdFavorito(),
+                salvo.getUsuario().getIdUsuario(),
+                salvo.getTrilhaCarreira().getIdTrilhaCarreira(),
                 salvo.getUsuario().getNomeUsuario(),
                 salvo.getTrilhaCarreira().getTituloTrilha()
         );
     }
 
-    // 🔹 Remover favorito
+
     @Transactional
     public void remover(Long idFavorito) {
         favoritoRepository.deleteById(idFavorito);
