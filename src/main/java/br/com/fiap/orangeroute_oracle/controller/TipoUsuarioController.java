@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/tipo-usuario")
@@ -17,14 +17,52 @@ public class TipoUsuarioController {
     private final TipoUsuarioService tipoUsuarioService;
 
     @GetMapping
-    public ResponseEntity<List<TipoUsuario>> listarTodos() {
+    public ResponseEntity<Map<String, Object>> listarTodos() {
         List<TipoUsuario> tipos = tipoUsuarioService.listarTodos();
-        return ResponseEntity.ok(tipos);
+
+        List<Map<String, Object>> conteudo = new ArrayList<>();
+        for (TipoUsuario tipo : tipos) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("idTipoUsuario", tipo.getIdTipoUsuario());
+            item.put("nomeTipoUsuario", tipo.getNomeTipoUsuario()); // ✅ nome correto
+
+            Map<String, String> links = new LinkedHashMap<>();
+            links.put("self", "/tipo-usuario/" + tipo.getIdTipoUsuario());
+            links.put("all", "/tipo-usuario");
+            item.put("_links", links);
+
+            conteudo.add(item);
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("count", conteudo.size());
+        response.put("data", conteudo);
+        response.put("_links", Map.of(
+                "self", "/tipo-usuario",
+                "create", "/tipo-usuario (POST)"
+        ));
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoUsuario> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> buscarPorId(@PathVariable Long id) {
         TipoUsuario tipo = tipoUsuarioService.buscarPorId(id);
-        return ResponseEntity.ok(tipo);
+
+        if (tipo == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("idTipoUsuario", tipo.getIdTipoUsuario());
+        body.put("nomeTipoUsuario", tipo.getNomeTipoUsuario()); // ✅ nome correto
+        body.put("_links", Map.of(
+                "self", "/tipo-usuario/" + id,
+                "all", "/tipo-usuario",
+                "update", "/tipo-usuario/" + id + " (PUT)",
+                "delete", "/tipo-usuario/" + id + " (DELETE)"
+        ));
+
+        return ResponseEntity.ok(body);
     }
 }

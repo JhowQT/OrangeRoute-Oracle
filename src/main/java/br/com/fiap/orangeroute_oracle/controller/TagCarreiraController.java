@@ -1,17 +1,12 @@
 package br.com.fiap.orangeroute_oracle.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.fiap.orangeroute_oracle.entity.TagCarreira;
 import br.com.fiap.orangeroute_oracle.repository.TagCarreiraRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/tags")
@@ -21,21 +16,89 @@ public class TagCarreiraController {
     @Autowired
     private TagCarreiraRepository repository;
 
-    // 🔹 Listar todas as tags de carreira
     @GetMapping
-    public List<TagCarreira> listarTodas() {
-        return repository.findAll();
+    public ResponseEntity<Map<String, Object>> listarTodas() {
+        List<TagCarreira> lista = repository.findAll();
+
+        List<Map<String, Object>> conteudo = new ArrayList<>();
+        for (TagCarreira tc : lista) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("idTagCarreira", tc.getIdTagCarreira());
+            item.put("idTrilhaCarreira", tc.getTrilhaCarreira().getIdTrilhaCarreira());
+            item.put("idTag", tc.getTag().getIdTag());
+
+           
+            item.put("_links", Map.of(
+                    "self", "/tags/" + tc.getIdTagCarreira(),
+                    "all", "/tags",
+                    "porTrilha", "/tags/trilha/" + tc.getTrilhaCarreira().getIdTrilhaCarreira()
+            ));
+
+            conteudo.add(item);
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("count", conteudo.size());
+        response.put("data", conteudo);
+        response.put("_links", Map.of(
+                "self", "/tags"
+        ));
+
+        return ResponseEntity.ok(response);
     }
 
-    // 🔹 Buscar uma tag específica por ID
     @GetMapping("/{id}")
-    public Optional<TagCarreira> buscarPorId(@PathVariable Long id) {
-        return repository.findById(id);
+    public ResponseEntity<Map<String, Object>> buscarPorId(@PathVariable Long id) {
+        Optional<TagCarreira> resultado = repository.findById(id);
+
+        if (resultado.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        TagCarreira tc = resultado.get();
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("idTagCarreira", tc.getIdTagCarreira());
+        body.put("idTrilhaCarreira", tc.getTrilhaCarreira().getIdTrilhaCarreira());
+        body.put("idTag", tc.getTag().getIdTag());
+        body.put("_links", Map.of(
+                "self", "/tags/" + id,
+                "all", "/tags",
+                "porTrilha", "/tags/trilha/" + tc.getTrilhaCarreira().getIdTrilhaCarreira()
+        ));
+
+        return ResponseEntity.ok(body);
     }
 
-    // 🔹 Listar tags associadas a uma trilha específica
     @GetMapping("/trilha/{idTrilha}")
-    public List<TagCarreira> listarPorTrilha(@PathVariable Long idTrilha) {
-        return repository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha);
+    public ResponseEntity<Map<String, Object>> listarPorTrilha(@PathVariable Long idTrilha) {
+        List<TagCarreira> lista = repository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha);
+
+        List<Map<String, Object>> conteudo = new ArrayList<>();
+        for (TagCarreira tc : lista) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("idTagCarreira", tc.getIdTagCarreira());
+            item.put("idTag", tc.getTag().getIdTag());
+            item.put("idTrilhaCarreira", idTrilha);
+
+            item.put("_links", Map.of(
+                    "self", "/tags/" + tc.getIdTagCarreira(),
+                    "all", "/tags",
+                    "trilha", "/trilhas/" + idTrilha
+            ));
+
+            conteudo.add(item);
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("count", conteudo.size());
+        response.put("data", conteudo);
+        response.put("_links", Map.of(
+                "self", "/tags/trilha/" + idTrilha,
+                "trilha", "/trilhas/" + idTrilha,
+                "all", "/tags"
+        ));
+
+        return ResponseEntity.ok(response);
     }
 }
