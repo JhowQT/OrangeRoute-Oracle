@@ -35,6 +35,26 @@ Criado com o propósito de auxiliar pessoas interessadas no universo da programa
 A plataforma oferece guias e trilhas personalizadas que ajudam o usuário a escolher as matérias e caminhos de aprendizado mais adequados ao seu perfil.
 Assim, o projeto atua como um facilitador para quem deseja trilhar seus primeiros passos no mundo dos códigos e da inovação tecnológica.
 
+______________________________________________________________________________________________________
+
+<details>
+  <summary>📁 Tabela: T_OR_COMENTARIO</summary>
+
+  **Atributos**
+  - `id_comentario` (PK)  
+  - `cd_comentario` (CLOB)  
+  - `at_comentario` (Boolean)  
+  - `id_usuario` (FK → T_OR_USUARIO)  
+  - `id_trilha_carreira` (FK → T_OR_TRILHA_CARREIRA)  
+
+  **Relacionamentos**
+  - N comentários pertencem a 1 usuário e 1 trilha.  
+
+  **Constraint**
+  - Mantém integridade entre usuário, trilha e comentários.
+</details>
+
+
 A OrangeRoute API fornece endpoints para gerenciamento de:
 
 Usuários
