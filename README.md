@@ -54,6 +54,23 @@ ________________________________________________________________________________
   - Mantém integridade entre usuário, trilha e comentários.
 </details>
 
+<details>
+  <summary>📁 Tabela: T_OR_COMENTARIO</summary>
+
+  **Atributos**
+  - `id_comentario` (PK)  
+  - `cd_comentario` (CLOB)  
+  - `at_comentario` (Boolean)  
+  - `id_usuario` (FK → T_OR_USUARIO)  
+  - `id_trilha_carreira` (FK → T_OR_TRILHA_CARREIRA)  
+
+  **Relacionamentos**
+  - N comentários pertencem a 1 usuário e 1 trilha.  
+
+  **Constraint**
+  - Mantém integridade entre usuário, trilha e comentários.
+</details>
+
 
 A OrangeRoute API fornece endpoints para gerenciamento de:
 
