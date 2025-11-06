@@ -32,7 +32,7 @@ public class TrilhaCarreiraController {
                     "all", "/trilhas"
             ));
 
-            lista.add(item);
+            lista.add(item);        
         }
 
         Map<String, Object> response = new LinkedHashMap<>();
