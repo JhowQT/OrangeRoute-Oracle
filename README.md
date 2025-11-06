@@ -48,7 +48,7 @@ ________________________________________________________________________________
 <details>
   <summary>📗 DER - Diagrama Entidade Relacionamento</summary>
 
-  ![MER](https://github.com/JhowQT/OrangeRoute-Oracle/issues/2#issue-3598052468)
+  ![DER](https://github.com/JhowQT/OrangeRoute-Oracle/issues/2#issue-3598052468)
 
   _Figura: DER do sistema._
 </details>
