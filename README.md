@@ -45,23 +45,14 @@ ________________________________________________________________________________
   _Figura: MER do sistema._
 </details>
 
-
 <details>
-  <summary>📁 Tabela: T_OR_COMENTARIO</summary>
+  <summary>📗 DER - Diagrama Entidade Relacionamento</summary>
 
-  **Atributos**
-  - `id_comentario` (PK)  
-  - `cd_comentario` (CLOB)  
-  - `at_comentario` (Boolean)  
-  - `id_usuario` (FK → T_OR_USUARIO)  
-  - `id_trilha_carreira` (FK → T_OR_TRILHA_CARREIRA)  
+  ![MER](https://github.com/JhowQT/OrangeRoute-Oracle/issues/2#issue-3598052468)
 
-  **Relacionamentos**
-  - N comentários pertencem a 1 usuário e 1 trilha.  
-
-  **Constraint**
-  - Mantém integridade entre usuário, trilha e comentários.
+  _Figura: DER do sistema._
 </details>
+
 
 
 A OrangeRoute API fornece endpoints para gerenciamento de:
