@@ -55,21 +55,18 @@ ________________________________________________________________________________
 
 
 
-A OrangeRoute API fornece endpoints para gerenciamento de:
+## A OrangeRoute API fornece endpoints para gerenciamento de:
 
-Usuários
+``TIPO_USUARIO``
+``USUARIO``
+``TRILHA_CARREIRA``
+``TAG_CARREIRA``
+``TAG``
+``FAVORITO``
+``COMENTARIO``
+``LINK``
 
-Trilhas de Carreira
-
-Comentários
-
-Favoritos
-
-Tags e TagPost (relação entre tags e posts)
-
-Tipos de Usuário
-
-Arquitetura em camadas Controller → Service → Repository → Entity, com JPA/Hibernate.
+-- *Arquitetura em camadas Controller → Service → Repository → Entity, com JPA/Hibernate.*
 
 ### COMO USAR OS ENDPOINTS
 
