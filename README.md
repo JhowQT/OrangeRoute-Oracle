@@ -31,10 +31,9 @@
 _____________________________________________________________________________________________________
 🧩 Visão Geral
 
-Criada como formato de auxiliar pessoas interassadas no mundo da programação, 
-tendo como fito mostrar s tendências do mercadod as areas que um programador deve
-conhecer, tendo guias para auxiliar o usuario nas escolhas da máteria. Assim sendo,
-e um facilitador para que qualquer um trilha nos codigos e tecnologia.
+Criado com o propósito de auxiliar pessoas interessadas no universo da programação, o Orange Route tem como objetivo apresentar as principais tendências do mercado de tecnologia e as áreas que um programador deve conhecer.
+A plataforma oferece guias e trilhas personalizadas que ajudam o usuário a escolher as matérias e caminhos de aprendizado mais adequados ao seu perfil.
+Assim, o projeto atua como um facilitador para quem deseja trilhar seus primeiros passos no mundo dos códigos e da inovação tecnológica.
 
 A OrangeRoute API fornece endpoints para gerenciamento de:
 
