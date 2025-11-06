@@ -1,17 +1,11 @@
 package br.com.fiap.orangeroute_oracle.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.fiap.orangeroute_oracle.entity.Link;
 import br.com.fiap.orangeroute_oracle.repository.LinkRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 @RestController
 @RequestMapping("/links")
@@ -20,22 +14,83 @@ public class LinkController {
 
     @Autowired
     private LinkRepository repository;
-
-    // 🔹 Listar todos os links cadastrados
     @GetMapping
-    public List<Link> listarTodos() {
-        return repository.findAll();
+    public ResponseEntity<Map<String, Object>> listarTodos() {
+        List<Link> links = repository.findAll();
+
+        List<Map<String, Object>> conteudo = new ArrayList<>();
+        for (Link l : links) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("idLink", l.getIdLink());
+            item.put("tituloLink", l.getTituloLink());
+            item.put("conteudoLink", l.getConteudoLink());
+            item.put("idTrilhaCarreira", l.getTrilhaCarreira().getIdTrilhaCarreira());
+            item.put("_links", Map.of(
+                    "self", "/links/" + l.getIdLink(),
+                    "porTrilha", "/links/trilha/" + l.getTrilhaCarreira().getIdTrilhaCarreira(),
+                    "all", "/links"
+            ));
+            conteudo.add(item);
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("count", conteudo.size());
+        response.put("data", conteudo);
+        response.put("_links", Map.of("self", "/links"));
+
+        return ResponseEntity.ok(response);
     }
 
-    // 🔹 Buscar um link específico pelo ID
     @GetMapping("/{id}")
-    public Optional<Link> buscarPorId(@PathVariable Long id) {
-        return repository.findById(id);
+    public ResponseEntity<Map<String, Object>> buscarPorId(@PathVariable Long id) {
+        Optional<Link> link = repository.findById(id);
+
+        if (link.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Link l = link.get();
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("idLink", l.getIdLink());
+        body.put("tituloLink", l.getTituloLink());
+        body.put("conteudoLink", l.getConteudoLink());
+        body.put("idTrilhaCarreira", l.getTrilhaCarreira().getIdTrilhaCarreira());
+        body.put("_links", Map.of(
+                "self", "/links/" + id,
+                "all", "/links",
+                "porTrilha", "/links/trilha/" + l.getTrilhaCarreira().getIdTrilhaCarreira()
+        ));
+
+        return ResponseEntity.ok(body);
     }
 
-    // 🔹 Listar todos os links de uma trilha específica
     @GetMapping("/trilha/{idTrilha}")
-    public List<Link> listarPorTrilha(@PathVariable Long idTrilha) {
-        return repository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha);
+    public ResponseEntity<Map<String, Object>> listarPorTrilha(@PathVariable Long idTrilha) {
+        List<Link> links = repository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha);
+
+        List<Map<String, Object>> conteudo = new ArrayList<>();
+        for (Link l : links) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("idLink", l.getIdLink());
+            item.put("tituloLink", l.getTituloLink());
+            item.put("conteudoLink", l.getConteudoLink());
+            item.put("_links", Map.of(
+                    "self", "/links/" + l.getIdLink(),
+                    "all", "/links",
+                    "trilha", "/trilhas/" + idTrilha
+            ));
+            conteudo.add(item);
+        }
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("count", conteudo.size());
+        response.put("data", conteudo);
+        response.put("_links", Map.of(
+                "self", "/links/trilha/" + idTrilha,
+                "trilha", "/trilhas/" + idTrilha,
+                "all", "/links"
+        ));
+
+        return ResponseEntity.ok(response);
     }
 }

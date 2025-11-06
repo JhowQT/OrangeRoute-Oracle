@@ -7,6 +7,7 @@ import br.com.fiap.orangeroute_oracle.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
@@ -27,17 +28,38 @@ public class LoginController {
                     .orElse(null);
 
             if (usuario == null) {
-                return ResponseEntity.status(401)
-                        .body(Map.of("message", "E-mail ou senha incorretos."));
+
+                Map<String, Object> erro = new LinkedHashMap<>();
+                erro.put("message", "E-mail ou senha incorretos.");
+                erro.put("_links", Map.of(
+                        "self", "/auth/login",
+                        "cadastro", "/usuario (POST)"
+                ));
+                return ResponseEntity.status(401).body(erro);
             }
 
             String token = "fake-jwt-token-" + usuario.getIdUsuario();
 
-            return ResponseEntity.ok(new LoginResponseDTO(token, usuario));
+            LoginResponseDTO dto = new LoginResponseDTO(token, usuario);
+
+
+            Map<String, Object> body = new LinkedHashMap<>();
+            body.put("data", dto);
+            body.put("_links", Map.of(
+                    "self", "/auth/login",
+                    "perfil", "/usuario/" + usuario.getIdUsuario(),
+                    "trilhas", "/trilhas",
+                    "favoritos", "/favoritos",
+                    "comentarios", "/comentarios"
+            ));
+
+            return ResponseEntity.ok(body);
 
         } catch (Exception e) {
-            return ResponseEntity.status(500)
-                    .body(Map.of("message", "Erro interno ao processar login."));
+            Map<String, Object> erro = new LinkedHashMap<>();
+            erro.put("message", "Erro interno ao processar login.");
+            erro.put("_links", Map.of("self", "/auth/login"));
+            return ResponseEntity.status(500).body(erro);
         }
     }
 }
