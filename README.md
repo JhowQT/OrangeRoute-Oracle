@@ -83,9 +83,7 @@ ________________________________________________________________________________
 - **TIPO - USUARIOS** -
 > -
 > - Busca todos os tipo-usuarios **GET**`localhost:8080:tipos-usuario` 
-> - Busca tipo-usuarios por id **GET**`localhost:8080:tipos-usuario/{id}` 
-> - Cria um tipo-usuario **POST**`localhost:8080:tipos-usuario`
-> - Deleta por ID **DELETE**`localhost:8080:tipos-usuario/{id}`
+> - Busca tipo-usuarios por id **GET**`localhost:8080:tipo-usuario/{id}` 
 > -
 
 _______________________________________________________________________________________________________
