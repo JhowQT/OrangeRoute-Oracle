@@ -221,8 +221,10 @@ server.port=8080
 
 Executando
 # Clonar o repositório
-git clone https://github.com/JhowQT/Oracle-Orange-Route.git
-cd <repo-orangeroute>
+- git clone https://github.com/JhowQT/OrangeRoute-Oracle
+- cd OrangeRoute-oracle
+- code .
+
 
 # Rodar a aplicação
 mvn spring-boot:run
