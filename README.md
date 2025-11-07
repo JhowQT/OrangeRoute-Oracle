@@ -72,10 +72,12 @@ ________________________________________________________________________________
 
 - **USUARIOS** -
 > -
-> - Busca todos os usuarios **GET**`localhost:8080:usuarios` 
-> - Busca usuarios por id **GET**`localhost:8080:usuarios/{id}` 
-> - Cria um usuario **POST**`localhost:8080:usuarios`
-> - Deleta por ID **DELETE**`localhost:8080:usuarios/{id}`
+> - Busca todos os usuarios **GET**`localhost:8080:usuario` 
+> - Busca usuarios por id **GET**`localhost:8080:usuario/{id}` 
+> - Cria um usuario **POST**`localhost:8080:usuario`
+> - Atualiza por ID **PUT**`localhost:8080:usuario/{id}`
+> - Atualiza foto **PUT**`localhost:8080:usuario/{id}/foto`
+> - Deleta por ID **DELETE**`localhost:8080:usuario/{id}`
 > -
 
 _______________________________________________________________________________________________________
