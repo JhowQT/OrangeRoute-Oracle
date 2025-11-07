@@ -78,7 +78,8 @@ ________________________________________________________________________________
 > - Atualiza por ID **PUT**`localhost:8080:usuario/{id}`
 > - Atualiza foto **PUT**`localhost:8080:usuario/{id}/foto`
 > - Deleta por ID **DELETE**`localhost:8080:usuario/{id}`
-> -
+> - `IdTipoUsuario: 1 para admin e 2 para user, apenas esses dois dados são aceitos para tipo_usuario`
+> 
 #### 📥 Corpo da Requisição POST (JSON esperado)
 ```json
 {
