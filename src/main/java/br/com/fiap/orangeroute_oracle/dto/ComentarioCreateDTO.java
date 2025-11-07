@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ComentarioCreateDTO {
 
     private String conteudoComentario;
-    private String ativoComentario = "1"; // ativo por padrão
+    private String ativoComentario = "1"; 
     private Long idUsuario;
     private Long idTrilhaCarreira;
 }

@@ -11,7 +11,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/tipo-usuario")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*") // permite chamadas do front-end (localhost:5500)
+@CrossOrigin(origins = "*") 
 public class TipoUsuarioController {
 
     private final TipoUsuarioService tipoUsuarioService;

@@ -26,7 +26,6 @@ public class ComentarioService {
     @Autowired
     private TrilhaCarreiraRepository trilhaRepository;
 
-    // 🔹 Listar todos os comentários
     public List<ComentarioResponseDTO> listarTodos() {
         return comentarioRepository.findAll()
                 .stream()
@@ -40,8 +39,7 @@ public class ComentarioService {
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Listar comentários de uma trilha específica
-    public List<ComentarioResponseDTO> listarPorTrilha(Long idTrilha) {
+        public List<ComentarioResponseDTO> listarPorTrilha(Long idTrilha) {
         return comentarioRepository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha)
                 .stream()
                 .map(c -> new ComentarioResponseDTO(
@@ -54,7 +52,6 @@ public class ComentarioService {
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Criar novo comentário (com FKs)
     @Transactional
     public ComentarioResponseDTO criar(ComentarioCreateDTO dto) {
         Comentario comentario = new Comentario();

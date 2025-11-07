@@ -15,9 +15,6 @@ public class TagCarreiraController {
     @Autowired
     private TagCarreiraRepository repository;
 
-    // ==========================================================
-    // LISTAR TODAS AS TAGS
-    // ==========================================================
     @GetMapping
     public ResponseEntity<Map<String, Object>> listarTodas() {
         List<TagCarreira> lista = repository.findAll();
@@ -46,10 +43,7 @@ public class TagCarreiraController {
         return ResponseEntity.ok(response);
     }
 
-    // ==========================================================
-    // BUSCAR TAG POR ID
-    // ==========================================================
-    @GetMapping("/{id}")
+   @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> buscarPorId(@PathVariable Long id) {
         Optional<TagCarreira> resultado = repository.findById(id);
 
@@ -73,10 +67,7 @@ public class TagCarreiraController {
         return ResponseEntity.ok(body);
     }
 
-    // ==========================================================
-    // LISTAR TAGS POR TRILHA
-    // ==========================================================
-    @GetMapping("/trilha/{idTrilha}")
+   @GetMapping("/trilha/{idTrilha}")
     public ResponseEntity<Map<String, Object>> listarPorTrilha(@PathVariable Long idTrilha) {
         List<TagCarreira> lista = repository.findByTrilhaCarreiraIdTrilhaCarreira(idTrilha);
 

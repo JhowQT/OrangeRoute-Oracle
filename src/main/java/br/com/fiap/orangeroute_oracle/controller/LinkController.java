@@ -9,7 +9,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/links")
-@CrossOrigin(origins = "*") // Permite chamadas do front (ex: localhost:5500)
+@CrossOrigin(origins = "*")
 public class LinkController {
 
     @Autowired

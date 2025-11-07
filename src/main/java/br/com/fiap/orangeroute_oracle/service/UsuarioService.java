@@ -23,9 +23,6 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final TipoUsuarioRepository tipoUsuarioRepository;
 
-    /* ===========================================================
-       Cadastrar novo usuário
-    ============================================================ */
     public UsuarioResponseDTO cadastrarUsuario(UsuarioCreateDTO dto) {
 
         if (usuarioRepository.existsByEmail(dto.getEmail())) {
@@ -50,9 +47,6 @@ public class UsuarioService {
         return toResponseDTO(salvo);
     }
 
-    /* ===========================================================
-       Listar todos os usuários
-    ============================================================ */
     public List<UsuarioResponseDTO> listarUsuarios() {
         return usuarioRepository.findAll()
                 .stream()
@@ -60,9 +54,6 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    /* ===========================================================
-       Buscar usuário por ID
-    ============================================================ */
     public UsuarioResponseDTO buscarUsuarioPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
@@ -70,14 +61,11 @@ public class UsuarioService {
         return toResponseDTO(usuario);
     }
 
-    /* ===========================================================
-       Atualizar dados do usuário
-    ============================================================ */
     public UsuarioResponseDTO atualizarUsuario(Long id, UsuarioUpdateDTO dto) {
         Usuario existente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + id));
 
-        // Atualiza apenas os campos realmente enviados
+       
         if (dto.getNomeUsuario() != null && !dto.getNomeUsuario().isBlank())
             existente.setNomeUsuario(dto.getNomeUsuario());
 
@@ -100,9 +88,6 @@ public class UsuarioService {
         return toResponseDTO(atualizado);
     }
 
-    /* ===========================================================
-       Atualizar foto de perfil
-    ============================================================ */
     public UsuarioResponseDTO atualizarFoto(Long id, UsuarioFotoDTO dto) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
@@ -117,9 +102,6 @@ public class UsuarioService {
         return toResponseDTO(atualizado);
     }
 
-    /* ===========================================================
-       Excluir usuário
-    ============================================================ */
     public void deletarUsuario(Long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não encontrado para exclusão.");
@@ -127,9 +109,6 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    /* ===========================================================
-       Converter entidade para DTO de resposta
-    ============================================================ */
     private UsuarioResponseDTO toResponseDTO(Usuario usuario) {
         String fotoBase64 = null;
 
@@ -142,7 +121,7 @@ public class UsuarioService {
                 usuario.getNomeUsuario(),
                 usuario.getEmail(),
                 usuario.getTipoUsuario().getIdTipoUsuario(),
-                // Correção: campo real da classe TipoUsuario é nmTipoUsuario
+               
                 usuario.getTipoUsuario().getNomeTipoUsuario(),
                 usuario.getAtivo(),
                 fotoBase64
