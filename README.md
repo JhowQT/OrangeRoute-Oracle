@@ -109,16 +109,25 @@ ________________________________________________________________________________
 - **FAVORITOS** -
 > -
 > - Busca todos os favoritoss **GET**`localhost:8080:favoritos`  
-> - Cria um favoritos **POST**`localhost:8080:favotritos`
-> - Deleta por ID **DELETE**`localhost:8080:favoritos/{id}`
+> - Busca favoritos ID de usuario **GET**`localhost:8080:favotritos/usuario/{idUsuario}`
+> - Cria favorito **POST**`localhost:8080:favoritos`
+> - Deleta por ID **DELETE**`localhost:8080:favotiros/{idFavorito}`
 > -
 
+#### 📥 Corpo da Requisição POST (JSON esperado)
+```json
+{
+  "idUsuario": 2,
+  "idTrilhaCarreira": 5
+}
+```
 _______________________________________________________________________________________________________
 
 - **COMENTARIOS** -
 > -
 > - Busca todos os comentarios **GET**`localhost:8080:comentarios` 
 > - Cria um comentarios **POST**`localhost:8080:comentarios`
+> - Deleta por ID **DELETE**`localhost:8080:comentarios/{id}`
 > - Deleta por ID **DELETE**`localhost:8080:comentarios/{id}`
 > -
 
