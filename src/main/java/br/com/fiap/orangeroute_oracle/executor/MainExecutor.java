@@ -43,18 +43,18 @@ public class MainExecutor {
             System.out.println(" TESTE DE PROCEDURES: USUÁRIO");
             System.out.println("==============================================\n");
 
-            System.out.println("Executando INSERT de usuário...");
+            /*System.out.println("Executando INSERT de usuário...");
             usuarioDAO.inserirUsuario(
                     "Usuário Sprint 2",
                     "sprint2usuario@fiap.com",
                     "senha123",
                     "1",
                     1
-            );
+            );*/
 
-           /* System.out.println("\n Executando UPDATE de usuário...");
+            System.out.println("\n Executando UPDATE de usuário...");
             usuarioDAO.atualizarUsuario(
-                    12,
+                    13,
                     "Usuário Sprint 2 Atualizado",
                     "atualizado@fiap.com",
                     "novasenha123",
@@ -62,8 +62,8 @@ public class MainExecutor {
                     1
             );
 
-            System.out.println("\nExecutando DELETE de usuário...");
-            usuarioDAO.deletarUsuario(12);*/
+            /*System.out.println("\nExecutando DELETE de usuário...");
+            usuarioDAO.deletarUsuario(13);*/
 
             System.out.println("\n Procedures de USUÁRIO executadas com sucesso!\n");
 
@@ -71,25 +71,25 @@ public class MainExecutor {
             System.out.println(" TESTE DE PROCEDURES: COMENTÁRIO");
             System.out.println("==============================================\n");
 
-            System.out.println("Executando INSERT de comentário...");
+            /*System.out.println("Executando INSERT de comentário...");
             comentarioDAO.inserirComentario(
                     "Comentário de teste via DAO - Sprint 2",
                     "1",
-                    12,
+                    13,
                     2 
-            );
+            );*/
 
-           /* System.out.println("\nExecutando UPDATE de comentário...");
+            System.out.println("\nExecutando UPDATE de comentário...");
             comentarioDAO.atualizarComentario(
                     1,
                     "Comentário atualizado via DAO - Sprint 2",
                     "1",
-                    11,
+                    27,
                     2
             );
 
-            System.out.println("\nExecutando DELETE de comentário...");
-            comentarioDAO.deletarComentario(25);*/
+            /*System.out.println("\nExecutando DELETE de comentário...");
+            comentarioDAO.deletarComentario(27);*/
 
             System.out.println("\nProcedures de COMENTÁRIO executadas com sucesso!\n");
 
