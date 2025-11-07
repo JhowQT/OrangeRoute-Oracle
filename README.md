@@ -70,7 +70,7 @@ ________________________________________________________________________________
 
 ### COMO USAR OS ENDPOINTS
 
-- **USUARIOS** -
+- **USUARIO** -
 > -
 > - Busca todos os usuarios **GET**`localhost:8080:usuario` 
 > - Busca usuarios por id **GET**`localhost:8080:usuario/{id}` 
@@ -79,7 +79,15 @@ ________________________________________________________________________________
 > - Atualiza foto **PUT**`localhost:8080:usuario/{id}/foto`
 > - Deleta por ID **DELETE**`localhost:8080:usuario/{id}`
 > -
-
+#### 📥 Corpo da Requisição POST (JSON esperado)
+```json
+{
+  "nomeUsuario": "Thaisa Mendes",
+  "email": "thaisa.mendes@example.com",
+  "senha": "123456",
+  "idTipoUsuario": 2
+}
+```
 _______________________________________________________________________________________________________
 
 - **TIPO - USUARIOS** -
