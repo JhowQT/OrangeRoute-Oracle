@@ -101,7 +101,7 @@ ________________________________________________________________________________
 - **TRILHA DE CARREIRA** -
 > -
 > - Busca todos as trilhas **GET**`localhost:8080:trilhas` 
-> - Cria uma trilha **POST**`localhost:8080:trilhas`
+> - Busca trilha por ID **GET**`localhost:8080:trilhas/{id}`
 > -
 
 _______________________________________________________________________________________________________
