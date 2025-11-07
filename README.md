@@ -231,12 +231,17 @@ mvn spring-boot:run
 # ou
 mvn clean package && java -jar target/orangeroute-*.jar
 
+## ACESSO AO BD
+- Para iniciar o projeto insira o acesso
+- campo de login *rm560601*
+- campo de senha *040301*
 
 Aplicação disponível em:
-http://localhost:8080
+- http://localhost:8080/ `aqui colocar as rotas detalhas no topo para acessar os dados do end-points`
+- http://localhost:8080//swagger-ui/index.html `vizualização de todas as rotas no swagger`
 
 __________________________________________________________________________________________________________
 ## LINK YT
-https://youtu.be/aRWhoVAMbdw
+- 
 
 
