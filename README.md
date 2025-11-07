@@ -126,28 +126,49 @@ ________________________________________________________________________________
 - **COMENTARIOS** -
 > -
 > - Busca todos os comentarios **GET**`localhost:8080:comentarios` 
-> - Cria um comentarios **POST**`localhost:8080:comentarios`
-> - Deleta por ID **DELETE**`localhost:8080:comentarios/{id}`
-> - Deleta por ID **DELETE**`localhost:8080:comentarios/{id}`
+> - Busca ID de Trilha **GET**`localhost:8080:comentarios/trilha/{idTrilha}`
+> - Cria Comentario **POST**`localhost:8080:comentarios`
 > -
 
+#### 📥 Corpo da Requisição POST (JSON esperado)
+```json
+{
+  "idUsuario": 2,
+  "idTrilhaCarreira": 5,
+  "conteudoComentario": "Gostei muito das dicas sobre Java e mercado de trabalho!"
+}
+```
 _______________________________________________________________________________________________________
 
 - **TAG** -
 > -
 > - Busca todos os tags **GET**`localhost:8080:tags` 
-> - Cria um tags **POST**`localhost:8080:tags`
-> - Deleta por ID **DELETE**`localhost:8080:tags/{id}`
+> - Busca ID **GET**`localhost:8080:tags/{id}`
+> - Busca ID por Trilha **GET**`localhost:8080:tags/trilha/{idTrilha}`
 > -
 
 _______________________________________________________________________________________________________
 
-- **TAG - POST** -
+- **LINK** -
 > -
-> - Busca todos os tags **GET**`localhost:8080:tags-post` 
-> - Cria um tags **POST**`localhost:8080:tags-post`
+> - Busca todos os tags **GET**`localhost:8080:links` 
+> - Busca por ID **GET**`localhost:8080:links/{id}`
+> - Busca Id por Trilha **GET**`localhost:8080:links/trilha/{idTrilha}`
 > -
 
+________________________________________________________________________________________________________
+
+- **LOGIN** -
+> -
+> - Post Login **GET**`localhost:8080:auth/login` 
+> -
+#### 📥 Corpo da Requisição POST (JSON esperado)
+```json
+{
+  "email": "thaisa.mendes@example.com",
+  "senha": "123456"
+}
+```
 ________________________________________________________________________________________________________
 
 📚 Documentação dos Endpoints (Swagger/OpenAPI)
@@ -163,21 +184,18 @@ ________________________________________________________________________________
 🧪 Coleções de Teste (Postman/Insomnia)
 
 Coleção Postman: docs/OrangeRoute API.postman_collection.json
-
 Ambiente Postman: docs/base_url.postman_environment.json
 
+`exports fornecidos dentro do ZIP do arquivo`
+
 base_url = http://localhost:8080
+base_id = 2
 
 Como usar:
 
 Importe a coleção e o ambiente.
-
 Selecione o ambiente base_url.
-
 Execute os requests ({{base_url}}/usuarios, etc.).
-
-Inclua prints com 200/201/204 e corpos JSON na pasta docs/.
-
 ___________________________________________________________________________________________________________
 
 🧪 Como Executar Localmente
