@@ -29,6 +29,20 @@
 
 `Responsável pelo app mobile (React Native/Expo), navegação entre telas, integração com a API e protótipo funcional. No pilar Compliance & Quality Assurance, estruturou a documentação de escopo/visão, critérios de qualidade, e evidências para validação das entregas.`
 _____________________________________________________________________________________________________
+
+Como rodar
+primeiro garanta que você tem o git e o docker instalados na sua maquina, assim como ter o docker desktop aberto
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/JhowQT/OrangeRoute-Oracle.git .
+
+# 2. Construir a imagem Docker
+docker build -t="Orange-route" .
+
+# 3. Executar o container
+docker run -p 8080:8080 -it --rm Orange-route
+```
+_____________________________________________________________________________________________________
 🧩 Visão Geral
 
 Criado com o propósito de auxiliar pessoas interessadas no universo da programação, o Orange Route tem como objetivo apresentar as principais tendências do mercado de tecnologia e as áreas que um programador deve conhecer.
