@@ -1,3 +1,4 @@
+ 
  FROM maven:3.9-eclipse-temurin-17 AS builder
  WORKDIR /app
  # Copie pom.xml e baixe dependências primeiro (cache eficiente)
