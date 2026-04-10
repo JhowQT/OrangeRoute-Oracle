@@ -1,8 +1,10 @@
 package br.com.fiap.orangeroute_oracle.executor;
 
 import br.com.fiap.orangeroute_oracle.OrangerouteOracleApplication;
-import br.com.fiap.orangeroute_oracle.oracledao.UsuarioDAO;
-import br.com.fiap.orangeroute_oracle.oracledao.ComentarioDAO;
+import br.com.fiap.orangeroute_oracle.oracledao.ComentarioJsonDAO;
+import br.com.fiap.orangeroute_oracle.oracledao.RelatorioJsonDAO;
+import br.com.fiap.orangeroute_oracle.oracledao.ScoreTrilhaDAO;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,11 +16,12 @@ public class MainExecutor {
     public static void main(String[] args) {
 
         System.out.println("==============================================");
-        System.out.println("   INICIANDO EXECUÇÃO MANUAL DAS PROCEDURES   ");
+        System.out.println("   EXECUÇÃO DAS FUNÇÕES E PROCEDURES ORACLE   ");
         System.out.println("==============================================\n");
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite seu usuário Oracle (ex: rmXXXXXX): ");
+
+        System.out.print("Digite seu usuário Oracle: ");
         String user = scanner.nextLine().trim();
 
         System.out.print("Digite sua senha Oracle: ");
@@ -27,82 +30,48 @@ public class MainExecutor {
         System.setProperty("DB_USER", user);
         System.setProperty("DB_PASSWORD", password);
 
-        System.out.println("\nCredenciais Oracle definidas com sucesso!");
-        System.out.println("Conectando e executando procedures...\n");
+        System.out.println("\nConectando ao banco...\n");
 
         ConfigurableApplicationContext context = new SpringApplicationBuilder(OrangerouteOracleApplication.class)
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        UsuarioDAO usuarioDAO = context.getBean(UsuarioDAO.class);
-        ComentarioDAO comentarioDAO = context.getBean(ComentarioDAO.class);
+        // 🔹 Pegando os DAOs
+        ComentarioJsonDAO comentarioJsonDAO = context.getBean(ComentarioJsonDAO.class);
+        RelatorioJsonDAO relatorioJsonDAO = context.getBean(RelatorioJsonDAO.class);
+        ScoreTrilhaDAO scoreTrilhaDAO = context.getBean(ScoreTrilhaDAO.class);
 
         try {
 
             System.out.println("==============================================");
-            System.out.println(" TESTE DE PROCEDURES: USUÁRIO");
+            System.out.println(" FUNÇÃO: LISTA JSON DE COMENTÁRIOS");
             System.out.println("==============================================\n");
 
-            /*System.out.println("Executando INSERT de usuário...");
-            usuarioDAO.inserirUsuario(
-                    "Usuário Sprint 2",
-                    "sprint2usuario@fiap.com",
-                    "senha123",
-                    "1",
-                    1
-            );*/
+            comentarioJsonDAO.listarComentariosJson();
 
-            System.out.println("\n Executando UPDATE de usuário...");
-            usuarioDAO.atualizarUsuario(
-                    13,
-                    "Usuário Sprint 2 Atualizado",
-                    "atualizado@fiap.com",
-                    "novasenha123",
-                    "1",
-                    1
-            );
-
-            /*System.out.println("\nExecutando DELETE de usuário...");
-            usuarioDAO.deletarUsuario(13);*/
-
-            System.out.println("\n Procedures de USUÁRIO executadas com sucesso!\n");
-
-            System.out.println("==============================================");
-            System.out.println(" TESTE DE PROCEDURES: COMENTÁRIO");
+            System.out.println("\n==============================================");
+            System.out.println(" PROCEDURE: RELATÓRIO JSON");
             System.out.println("==============================================\n");
 
-            /*System.out.println("Executando INSERT de comentário...");
-            comentarioDAO.inserirComentario(
-                    "Comentário de teste via DAO - Sprint 2",
-                    "1",
-                    13,
-                    2 
-            );*/
+            relatorioJsonDAO.executarRelatorioJson();
 
-            System.out.println("\nExecutando UPDATE de comentário...");
-            comentarioDAO.atualizarComentario(
-                    1,
-                    "Comentário atualizado via DAO - Sprint 2",
-                    "1",
-                    27,
-                    2
-            );
+            System.out.println("\n==============================================");
+            System.out.println(" FUNÇÃO: SCORE DA TRILHA");
+            System.out.println("==============================================\n");
 
-            /*System.out.println("\nExecutando DELETE de comentário...");
-            comentarioDAO.deletarComentario(27);*/
+            scoreTrilhaDAO.calcularScore(1); // pode trocar o ID
 
-            System.out.println("\nProcedures de COMENTÁRIO executadas com sucesso!\n");
 
-            System.out.println("TODAS AS PROCEDURES EXECUTADAS COM SUCESSO!");
+            System.out.println("\n==============================================");
+            System.out.println(" EXECUÇÃO FINALIZADA COM SUCESSO ");
+            System.out.println("==============================================\n");
 
         } catch (Exception e) {
-            System.err.println("\n Erro durante execução das procedures: " + e.getMessage());
+
+            System.err.println("Erro durante execução: " + e.getMessage());
+
         } finally {
             context.close();
         }
-
-        System.out.println("\n==============================================");
-        System.out.println("EXECUÇÃO FINALIZADA COM SUCESSO");
-        System.out.println("==============================================\n");
     }
 }

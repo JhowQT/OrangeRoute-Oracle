@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Types;
 
 @Component
 public class RelatorioJsonDAO {
@@ -14,7 +18,7 @@ public class RelatorioJsonDAO {
 
     public String executarRelatorioJson() {
 
-        String sql = "{ call prc_relatorio_json(?) }";
+        String sql = "{call prc_relatorio_json(?)}";
 
         try (Connection conn = dataSource.getConnection();
              CallableStatement stmt = conn.prepareCall(sql)) {
@@ -23,28 +27,28 @@ public class RelatorioJsonDAO {
 
             stmt.execute();
 
-            Clob clob = stmt.getClob(1);
-            String resultado = (clob != null)
-                    ? clob.getSubString(1, (int) clob.length())
-                    : null;
+            Reader reader = stmt.getCharacterStream(1);
+            StringBuilder resultado = new StringBuilder();
+
+            if (reader != null) {
+                BufferedReader br = new BufferedReader(reader);
+                String linha;
+
+                while ((linha = br.readLine()) != null) {
+                    resultado.append(linha);
+                }
+            }
 
             System.out.println("\n==============================================");
             System.out.println(" RELATÓRIO JSON");
             System.out.println("==============================================");
-            System.out.println(resultado);
+            System.out.println(resultado.toString());
 
-            return resultado;
+            return resultado.toString();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
-            String erro = e.getMessage();
-
-            if (erro.contains("-20060")) {
-                System.err.println("Regra de negócio: Nenhum comentário encontrado.");
-            } else {
-                System.err.println("Erro ao executar relatório JSON: " + erro);
-            }
-
+            System.err.println("Erro ao executar relatório JSON: " + e.getMessage());
             return null;
         }
     }
