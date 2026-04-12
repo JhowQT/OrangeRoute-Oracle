@@ -240,6 +240,15 @@ Executando
 - cd OrangeRoute-oracle
 - code .
 
+Executando
+# Clonar o repositório de TEST FRONT
+- git clone https://github.com/JhowQT/Front-OR-SPRINT.git
+- cd Front-OR-SPRINT
+- code .
+`Este front e para os teste das funcionalidades do back-edn,
+já que o front em mobile consome não so o JAVA como outras APIS
+onde certas funcionalidades do JAVA não são executas e este front
+foi criada para executar essas funcionalidades`
 
 # Rodar a aplicação
 mvn spring-boot:run
