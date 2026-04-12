@@ -43,7 +43,7 @@ public class MainExecutor2 {
 
             System.out.println("Executando INSERT de usuário...");
             usuarioDAO.inserirUsuario(
-                    "Usuário Teste ORACLE Java",
+                    "Teste ORACLE Java",
                     "oracle@fiap.com",
                     "12345678",
                     "1",
