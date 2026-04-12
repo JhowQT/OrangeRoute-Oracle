@@ -4,12 +4,13 @@ import br.com.fiap.orangeroute_oracle.OrangerouteOracleApplication;
 import br.com.fiap.orangeroute_oracle.oracledao.ComentarioJsonDAO;
 import br.com.fiap.orangeroute_oracle.oracledao.RelatorioJsonDAO;
 import br.com.fiap.orangeroute_oracle.oracledao.ScoreTrilhaDAO;
+import br.com.fiap.orangeroute_oracle.oracledao.RelatorioSequencialDAO;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Scanner;
+import java.util.Scanner; 
 
 public class MainExecutor {
 
@@ -36,10 +37,10 @@ public class MainExecutor {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        // 🔹 Pegando os DAOs
         ComentarioJsonDAO comentarioJsonDAO = context.getBean(ComentarioJsonDAO.class);
         RelatorioJsonDAO relatorioJsonDAO = context.getBean(RelatorioJsonDAO.class);
         ScoreTrilhaDAO scoreTrilhaDAO = context.getBean(ScoreTrilhaDAO.class);
+        RelatorioSequencialDAO relatorioSequencialDAO = context.getBean(RelatorioSequencialDAO.class);
 
         try {
 
@@ -59,8 +60,13 @@ public class MainExecutor {
             System.out.println(" FUNÇÃO: SCORE DA TRILHA");
             System.out.println("==============================================\n");
 
-            scoreTrilhaDAO.calcularScore(1); // pode trocar o ID
+            scoreTrilhaDAO.calcularScore(1);
 
+            System.out.println("\n==============================================");
+            System.out.println(" PROCEDURE: RELATÓRIO SEQUENCIAL");
+            System.out.println("==============================================\n");
+
+            relatorioSequencialDAO.executarRelatorioSequencial();
 
             System.out.println("\n==============================================");
             System.out.println(" EXECUÇÃO FINALIZADA COM SUCESSO ");

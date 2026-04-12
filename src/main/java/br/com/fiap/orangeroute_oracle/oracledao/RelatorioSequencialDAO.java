@@ -24,14 +24,22 @@ public class RelatorioSequencialDAO {
             stmt.execute();
 
             Clob clob = stmt.getClob(1);
-            String resultado = (clob != null)
-                    ? clob.getSubString(1, (int) clob.length())
-                    : null;
+
+            String resultado = null;
+
+            if (clob != null) {
+                resultado = clob.getSubString(1, (int) clob.length());
+            }
 
             System.out.println("\n==============================================");
-            System.out.println(" RELATÓRIO SEQUENCIAL");
+            System.out.println(" PROCEDURE: RELATÓRIO SEQUENCIAL");
             System.out.println("==============================================");
-            System.out.println(resultado);
+
+            if (resultado != null && !resultado.isEmpty()) {
+                System.out.println(resultado);
+            } else {
+                System.out.println("Nenhum resultado retornado.");
+            }
 
             return resultado;
 
